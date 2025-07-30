@@ -7,7 +7,7 @@ import { StoreContext } from "../../context/StoreContext";
 const Navbar = ({ setShowLogin }) => {
   const [menu, setMenu] = useState("Home");
   const [showMobileMenu, setShowMobileMenu] = useState(false);
-  const {getTotalCartAmount} = useContext(StoreContext)
+  const { getTotalCartAmount } = useContext(StoreContext);
 
   const handleMobileToggle = () => {
     setShowMobileMenu((prev) => !prev);
@@ -15,7 +15,9 @@ const Navbar = ({ setShowLogin }) => {
 
   return (
     <div className="navbar">
-      <Link to='/'><img src={assets.logo} alt="Logo" className="logo" /></Link>
+      <Link to="/">
+        <img src={assets.logo} alt="Logo" className="logo" />
+      </Link>
       <ul className={`navbar-menu ${showMobileMenu ? "show-menu" : ""}`}>
         <Link
           to="/"
@@ -59,8 +61,10 @@ const Navbar = ({ setShowLogin }) => {
       <div className="navbar-right">
         <img src={assets.search_icon} alt="Search Icon" />
         <div className="navbar-search-icon">
-         <Link to='/cart'> <img src={assets.basket_icon} alt="Basket Icon" /></Link>
-          <div className={getTotalCartAmount()===0 ? '' : "dot"}></div>
+          <Link to="/cart">
+            <img src={assets.basket_icon} alt="Basket Icon" />
+          </Link>
+          <div className={getTotalCartAmount() === 0 ? "" : "dot"}></div>
         </div>
         <button onClick={() => setShowLogin(true)}>Sign In</button>
       </div>
