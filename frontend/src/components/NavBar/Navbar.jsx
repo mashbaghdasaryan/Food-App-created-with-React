@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "../NavBar/Navbar.css";
 import { assets } from "../../assets/assets";
 import { Link } from "react-router-dom";
+import { StoreContext } from "../../context/StoreContext";
 
-const Navbar = () => {
+const Navbar = ({ setShowLogin }) => {
   const [menu, setMenu] = useState("Home");
   const [showMobileMenu, setShowMobileMenu] = useState(false);
+  const {getTotalCartAmount} = useContext(StoreContext)
 
   const handleMobileToggle = () => {
     setShowMobileMenu((prev) => !prev);
@@ -13,7 +15,7 @@ const Navbar = () => {
 
   return (
     <div className="navbar">
-      <img src={assets.logo} alt="Logo" className="logo" />
+      <Link to='/'><img src={assets.logo} alt="Logo" className="logo" /></Link>
       <ul className={`navbar-menu ${showMobileMenu ? "show-menu" : ""}`}>
         <Link
           to="/"
@@ -45,11 +47,7 @@ const Navbar = () => {
         </a>
       </ul>
       <div className="mobile-menu-icon" onClick={handleMobileToggle}>
-        <svg
-          viewBox="0 0 512 512"
-          width="25"
-          height="25"
-        >
+        <svg viewBox="0 0 512 512" width="25" height="25">
           <g>
             <path d="M480,224H32c-17.673,0-32,14.327-32,32s14.327,32,32,32h448c17.673,0,32-14.327,32-32S497.673,224,480,224z" />
             <path d="M32,138.667h448c17.673,0,32-14.327,32-32s-14.327-32-32-32H32c-17.673,0-32,14.327-32,32S14.327,138.667,32,138.667z" />
@@ -61,10 +59,10 @@ const Navbar = () => {
       <div className="navbar-right">
         <img src={assets.search_icon} alt="Search Icon" />
         <div className="navbar-search-icon">
-          <img src={assets.basket_icon} alt="" />
-          <div className="dot"></div>
+         <Link to='/cart'> <img src={assets.basket_icon} alt="Basket Icon" /></Link>
+          <div className={getTotalCartAmount()===0 ? '' : "dot"}></div>
         </div>
-        <button>Sign In</button>
+        <button onClick={() => setShowLogin(true)}>Sign In</button>
       </div>
     </div>
   );
